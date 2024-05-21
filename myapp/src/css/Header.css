@@ -1,0 +1,16 @@
+.header {
+    display: flex;
+    justify-content: center;
+    margin-bottom:5px;
+}
+
+.header-text {
+    border: 1px;
+    border-radius: 5px;
+    color: white;
+    font-size: 50px;
+    background-color: red;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    padding: 25px;
+}
