@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Todo {
     id: string;
+    isChecked: boolean;
     todoName: string;
 }
 
@@ -17,9 +18,22 @@ export const todoListSlice = createSlice({
         removeTodo: (state, action: PayloadAction<string>) => {
             return state.filter((item) => item.id !== action.payload);
         },
+        changeCheckBoxValue: (state, action: PayloadAction<string>) => {
+            return state.map((item) => {
+                if (item.id !== action.payload) {
+                    return item
+                } else {
+                    return {
+                        ...item,
+                        isChecked: !(item.isChecked)
+                    }
+                }
+            })
+        }
+
     },
 });
 
-export const { addNewTodo, removeTodo } = todoListSlice.actions;
+export const { addNewTodo, removeTodo, changeCheckBoxValue } = todoListSlice.actions;
 
 export default todoListSlice.reducer;
