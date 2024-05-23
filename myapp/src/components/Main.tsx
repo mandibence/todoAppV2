@@ -1,38 +1,60 @@
 import React, { ChangeEvent } from "react";
-import "../css/Main.css";
 import { useSelector, useDispatch } from 'react-redux';
-import { addNewTodo, removeTodo, editTodoText, changeCheckBoxValue } from '../redux/todoListSlice';
+import { addNewTodo, removeTodo, changeIsEditedValue, changIsCheckedValue, changeNewNameValue, changeTodoNameValue } from '../redux/todoListSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { RootState } from '../redux/store';
+import "../css/Main.css";
 
 interface Todo {
     id: string;
     isChecked: boolean;
     isEdited: boolean;
     todoName: string;
+    newName: string;
 }
 
 const Main: React.FC = () => {
+
     const dispatch = useDispatch();
 
     const todos = useSelector((state: RootState) => state.todoList);
-
-    const todoListToRender = todos.map((todo: Todo) => (
-        <div className="todoElement" key={todo.id}>
-            <input type="checkbox" checked={todo.isChecked} onClick={() => switchingCheckBoxValue(todo.id)} className="todoCheckbox" />
-            <li className="todoName">
-                {todo.todoName}
-            </li>
-            <button className="todoEditButton" onClick={() => editTodo(todo.id)}>Edit</button>
-            <button className="todoDeleteButton" onClick={() => deleteTodo(todo.id)}>Delete</button>
-        </div>
-    ));
 
     const [newTodo, setNewTodo] = React.useState<Todo>({
         id: "",
         isChecked: false,
         isEdited: false,
         todoName: "",
+        newName: "",
+    });
+    
+    const todoListToRender = todos.map((todo: Todo) => {
+        if (!(todo.isEdited)) {
+            return (
+                < div className = "todoElement" key = { todo.id } >
+                <input type="checkbox" checked={todo.isChecked} onClick={() => switchingCheckBoxValue(todo.id)} className="todoCheckbox" />
+                <li className="todoName">
+                    {todo.todoName}
+                </li>
+                <button className="todoEditButton" onClick={() => editTodo(todo.id)}>Edit</button>
+                <button className="todoDeleteButton" onClick={() => deleteTodo(todo.id)}>Delete</button>
+                </div >
+            )
+        } else {
+            return (
+                <div className="todoElementEditing">
+                    <input
+                        className="todoEditInput"
+                        onChange={(event) => changeTodoText(todo.id, event)}
+                    />
+                    <button
+                        className="todoEditDoneButton"
+                        onClick={() => editDoneClicked(todo.id)}
+                    >
+                        Done
+                    </button>
+                </div>
+            )          
+        }
     });
 
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -40,7 +62,8 @@ const Main: React.FC = () => {
             id: uuidv4(),
             isChecked: false,
             isEdited: false,
-            todoName: event.target.value
+            todoName: event.target.value,
+            newName: "",
         });
     }
 
@@ -51,6 +74,7 @@ const Main: React.FC = () => {
             isChecked: false,
             isEdited: false,
             todoName: "",
+            newName: "",
         });
     }
 
@@ -59,13 +83,26 @@ const Main: React.FC = () => {
     }
 
     function editTodo(id: string) {
-        dispatch(editTodoText(id))
+        dispatch(changeIsEditedValue(id))
     }
 
     function switchingCheckBoxValue(id: string) {
-        dispatch(changeCheckBoxValue(id));
+        dispatch(changIsCheckedValue(id));
     }
 
+    function changeTodoText(id: string, event: ChangeEvent<HTMLInputElement>) {
+        const currentPayload = {
+            id: id,
+            newName: event.target.value
+        }
+        dispatch(changeNewNameValue(currentPayload))
+    }
+
+    function editDoneClicked(id: string) {
+        dispatch(changeTodoNameValue(id))
+        editTodo(id)       
+    }
+ 
     return (
         <div>
             <div className="newTodoContainer">

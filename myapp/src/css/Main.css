@@ -39,6 +39,14 @@ ul {
     margin-right: 35px;
 }
 
+.todoElementEditing {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    min-width: 400px;
+    margin-right: 35px;
+}
+
 .todoCheckbox {
     transform: scale(2.5);
     margin-right: 20px;
@@ -70,3 +78,15 @@ ul {
     border-radius: 5px;
     border-style: none;
 }
+
+.todoEditDoneButton {
+    margin-left: auto;
+    height: 33px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: red;
+    border-radius: 5px;
+    border-style: none;
+}
+

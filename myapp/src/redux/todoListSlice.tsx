@@ -5,6 +5,12 @@ interface Todo {
     isChecked: boolean;
     isEdited: boolean;
     todoName: string;
+    newName: string;
+}
+
+interface UpdateNamePayload {
+    id: string;
+    newName: string;
 }
 
 const initialState: Todo[] = [];
@@ -19,19 +25,19 @@ export const todoListSlice = createSlice({
         removeTodo: (state, action: PayloadAction<string>) => {
             return state.filter((item) => item.id !== action.payload);
         },
-        editTodoText: (state, action: PayloadAction<string>) => {
+        changeIsEditedValue: (state, action: PayloadAction<string>) => {
             return state.map((item) => {
                 if (item.id !== action.payload) {
                     return item
                 } else {
                     return {
                         ...item,
-                        isEdited: true
+                        isEdited: !(item.isEdited)
                     }
                 }
             })
         },
-        changeCheckBoxValue: (state, action: PayloadAction<string>) => {
+        changIsCheckedValue: (state, action: PayloadAction<string>) => {
             return state.map((item) => {
                 if (item.id !== action.payload) {
                     return item
@@ -42,11 +48,35 @@ export const todoListSlice = createSlice({
                     }
                 }
             })
+        },
+        changeNewNameValue: (state, action: PayloadAction<UpdateNamePayload>) => {
+            return state.map((item) => {
+                if (item.id !== action.payload.id) {
+                    return item
+                } else {
+                    return {
+                        ...item,
+                        newName: action.payload.newName
+                    }
+                }
+            })
+        },
+        changeTodoNameValue: (state, action: PayloadAction<string>) => {
+            return state.map((item) => {
+                if (item.id !== action.payload) {
+                    return item
+                } else {
+                    return {
+                        ...item,
+                        todoName: item.newName,
+                        newName: "",
+                    }
+                }
+            })
         }
-
     },
 });
 
-export const { addNewTodo, removeTodo, editTodoText, changeCheckBoxValue } = todoListSlice.actions;
+export const { addNewTodo, removeTodo, changeIsEditedValue, changIsCheckedValue, changeNewNameValue, changeTodoNameValue } = todoListSlice.actions;
 
 export default todoListSlice.reducer;
