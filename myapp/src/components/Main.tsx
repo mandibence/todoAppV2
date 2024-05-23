@@ -1,13 +1,14 @@
 import React, { ChangeEvent } from "react";
 import "../css/Main.css";
 import { useSelector, useDispatch } from 'react-redux';
-import { addNewTodo, removeTodo, changeCheckBoxValue } from '../redux/todoListSlice';
+import { addNewTodo, removeTodo, editTodoText, changeCheckBoxValue } from '../redux/todoListSlice';
 import { v4 as uuidv4 } from 'uuid';
-import { RootState } from '../redux/store'; // Assuming you have a RootState type defined for your Redux store
+import { RootState } from '../redux/store';
 
 interface Todo {
     id: string;
     isChecked: boolean;
+    isEdited: boolean;
     todoName: string;
 }
 
@@ -22,6 +23,7 @@ const Main: React.FC = () => {
             <li className="todoName">
                 {todo.todoName}
             </li>
+            <button className="todoEditButton" onClick={() => editTodo(todo.id)}>Edit</button>
             <button className="todoDeleteButton" onClick={() => deleteTodo(todo.id)}>Delete</button>
         </div>
     ));
@@ -29,6 +31,7 @@ const Main: React.FC = () => {
     const [newTodo, setNewTodo] = React.useState<Todo>({
         id: "",
         isChecked: false,
+        isEdited: false,
         todoName: "",
     });
 
@@ -36,6 +39,7 @@ const Main: React.FC = () => {
         setNewTodo({
             id: uuidv4(),
             isChecked: false,
+            isEdited: false,
             todoName: event.target.value
         });
     }
@@ -45,12 +49,17 @@ const Main: React.FC = () => {
         setNewTodo({
             id: "",
             isChecked: false,
+            isEdited: false,
             todoName: "",
         });
     }
 
     function deleteTodo(id: string) {
         dispatch(removeTodo(id));
+    }
+
+    function editTodo(id: string) {
+        dispatch(editTodoText(id))
     }
 
     function switchingCheckBoxValue(id: string) {
