@@ -1,29 +1,29 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface Todo {
-    id: string;
-    isChecked: boolean;
-    isEdited: boolean;
-    todoName: string;
-    newName: string;
+    id: string
+    isChecked: boolean
+    isEdited: boolean
+    todoName: string
+    newName: string
 }
 
 interface UpdateNamePayload {
-    id: string;
-    newName: string;
+    id: string
+    newName: string
 }
 
-const initialState: Todo[] = [];
+const initialState: Todo[] = []
 
 export const todoListSlice = createSlice({
     name: 'todoList',
     initialState,
     reducers: {
         addNewTodo: (state, action: PayloadAction<Todo>) => {
-            return [...state, action.payload];
+            return [...state, action.payload]
         },
         removeTodo: (state, action: PayloadAction<string>) => {
-            return state.filter((item) => item.id !== action.payload);
+            return state.filter((item) => item.id !== action.payload)
         },
         changeIsEditedValue: (state, action: PayloadAction<string>) => {
             return state.map((item) => {
@@ -74,8 +74,8 @@ export const todoListSlice = createSlice({
             })
         }
     },
-});
+})
 
-export const { addNewTodo, removeTodo, changeIsEditedValue, changIsCheckedValue, changeNewNameValue, changeTodoNameValue } = todoListSlice.actions;
+export const { addNewTodo, removeTodo, changeIsEditedValue, changIsCheckedValue, changeNewNameValue, changeTodoNameValue } = todoListSlice.actions
 
-export default todoListSlice.reducer;
+export default todoListSlice.reducer

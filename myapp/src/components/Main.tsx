@@ -1,23 +1,23 @@
-import React, { ChangeEvent } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { addNewTodo, removeTodo, changeIsEditedValue, changIsCheckedValue, changeNewNameValue, changeTodoNameValue } from '../redux/todoListSlice';
-import { v4 as uuidv4 } from 'uuid';
-import { RootState } from '../redux/store';
-import "../css/Main.css";
+import React, { ChangeEvent } from "react"
+import { useSelector, useDispatch } from 'react-redux'
+import { addNewTodo, removeTodo, changeIsEditedValue, changIsCheckedValue, changeNewNameValue, changeTodoNameValue } from '../redux/todoListSlice'
+import { v4 as uuidv4 } from 'uuid'
+import { RootState } from '../redux/store'
+import "../css/Main.css"
 
 interface Todo {
-    id: string;
-    isChecked: boolean;
-    isEdited: boolean;
-    todoName: string;
-    newName: string;
+    id: string
+    isChecked: boolean
+    isEdited: boolean
+    todoName: string
+    newName: string
 }
 
 const Main: React.FC = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const todos = useSelector((state: RootState) => state.todoList);
+    const todos = useSelector((state: RootState) => state.todoList)
 
     const [newTodo, setNewTodo] = React.useState<Todo>({
         id: "",
@@ -25,18 +25,19 @@ const Main: React.FC = () => {
         isEdited: false,
         todoName: "",
         newName: "",
-    });
+    })
     
     const todoListToRender = todos.map((todo: Todo) => {
+
         if (!(todo.isEdited)) {
             return (
                 < div className = "todoElement" key = { todo.id } >
-                <input type="checkbox" checked={todo.isChecked} onClick={() => handleCheckBoxClick(todo.id)} className="todoCheckbox" />
-                <li className="todoName">
-                    {todo.todoName}
-                </li>
-                <button className="todoEditButton" onClick={() => handleEditTodoClick(todo.id)}>Edit</button>
-                <button className="todoDeleteButton" onClick={() => handleDeleteTodoClick(todo.id)}>Delete</button>
+                    <input className="todoCheckbox" type="checkbox" checked={todo.isChecked} onClick={() => handleCheckBoxClick(todo.id)}/>
+                    <li className="todoName">
+                        {todo.todoName}
+                    </li>
+                    <button className="todoEditButton" onClick={() => handleEditTodoClick(todo.id)}>Edit</button>
+                    <button className="todoDeleteButton" onClick={() => handleDeleteTodoClick(todo.id)}>Delete</button>
                 </div >
             )
         } else {
@@ -56,7 +57,7 @@ const Main: React.FC = () => {
                 </div>
             )          
         }
-    });
+    })
 
     function handleNewTodoInPutChange(event: ChangeEvent<HTMLInputElement>) {
         setNewTodo({
@@ -65,22 +66,22 @@ const Main: React.FC = () => {
             isEdited: false,
             todoName: event.target.value,
             newName: event.target.value,
-        });
+        })
     }
 
     function handleCreateNewTodoClick() {
-        dispatch(addNewTodo(newTodo));
+        dispatch(addNewTodo(newTodo))
         setNewTodo({
             id: "",
             isChecked: false,
             isEdited: false,
             todoName: "",
             newName: "",
-        });
+        })
     }
 
     function handleDeleteTodoClick(id: string) {
-        dispatch(removeTodo(id));
+        dispatch(removeTodo(id))
     }
 
     function handleEditTodoClick(id: string) {
@@ -88,7 +89,7 @@ const Main: React.FC = () => {
     }
 
     function handleCheckBoxClick(id: string) {
-        dispatch(changIsCheckedValue(id));
+        dispatch(changIsCheckedValue(id))
     }
 
     function handleEditTodoInPutChange(id: string, event: ChangeEvent<HTMLInputElement>) {
@@ -127,7 +128,7 @@ const Main: React.FC = () => {
                 </ul>
             </div>
         </div>
-    );
+    )
 }
 
-export default Main;
+export default Main

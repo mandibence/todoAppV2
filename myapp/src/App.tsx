@@ -3,7 +3,7 @@ import Header from "./components/Header"
 import Main from "./components/Main"
 import "./css/General.css"
 
-export default function App() {
+const App: React.FC = () => {
     return (
         <div>
             <Header />
@@ -11,3 +11,5 @@ export default function App() {
         </div>
     )
 }
+
+export default App
