@@ -12,9 +12,10 @@
     color: white;
     font-size: 16px;
     font-weight: bold;
-    background-color: red;
+    background-color: blueviolet;
     border-radius: 5px;
     border-style: none;
+    margin-left: 9px;
 }
 
 ul {
@@ -37,6 +38,10 @@ ul {
     height: 40px;
     min-width: 400px;
     margin-right: 35px;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    background-color: blueviolet;
+    border-radius: 5px;
 }
 
 .todoElementEditing {
@@ -45,27 +50,34 @@ ul {
     height: 40px;
     min-width: 400px;
     margin-right: 35px;
+    margin-bottom: 15px;
+    padding-left: 5px;
+    background-color: blueviolet;
+    border-radius: 5px;
 }
 
 .todoCheckbox {
     transform: scale(2.5);
     margin-right: 20px;
+    outline-color: blueviolet;
 }
 
 .todoName {
     font-size: 25px;
     margin-right: 12px;
+    color: white;
 }
 
 .todoDeleteButton {
     margin-left: 5px;
+    margin-right: 5px;
     height: 33px;
     color: white;
     font-size: 16px;
     font-weight: bold;
-    background-color: red;
+    background-color: #240242;
     border-radius: 5px;
-    border-style:  none;
+    border-style: none;
 }
 
 .todoEditButton {
@@ -74,18 +86,29 @@ ul {
     color: white;
     font-size: 16px;
     font-weight: bold;
-    background-color: red;
+    background-color: #240242;
     border-radius: 5px;
     border-style: none;
+}
+
+.todoEditInput {
+    height: 30px;
+    border-radius: 5px;
+    border-style: none;
+    width: 100%;
+    margin-right: 5px;
+    padding-left: 10px;
+    font-size: 16px;
 }
 
 .todoEditDoneButton {
     margin-left: auto;
     height: 33px;
+    margin-right: 5px;
     color: white;
     font-size: 16px;
     font-weight: bold;
-    background-color: red;
+    background-color: #240242;
     border-radius: 5px;
     border-style: none;
 }

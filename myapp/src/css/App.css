@@ -1,0 +1,15 @@
+.App {
+    display: flex;
+    justify-content: center;
+    background-color: blueviolet;
+    padding-top: 50px;
+}
+
+.AppInnerContainer {
+    background-color: #240242;
+    max-width: 440px;
+    min-width: 440px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    border-radius: 5px;
+}
