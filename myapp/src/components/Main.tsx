@@ -45,6 +45,7 @@ const Main: React.FC = () => {
                     <input
                         className="todoEditInput"
                         onChange={(event) => changeTodoText(todo.id, event)}
+                        value={todo.newName}
                     />
                     <button
                         className="todoEditDoneButton"
@@ -63,7 +64,7 @@ const Main: React.FC = () => {
             isChecked: false,
             isEdited: false,
             todoName: event.target.value,
-            newName: "",
+            newName: event.target.value,
         });
     }
 

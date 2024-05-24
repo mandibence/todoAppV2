@@ -69,7 +69,6 @@ export const todoListSlice = createSlice({
                     return {
                         ...item,
                         todoName: item.newName,
-                        newName: "",
                     }
                 }
             })
