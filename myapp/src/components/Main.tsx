@@ -31,12 +31,12 @@ const Main: React.FC = () => {
         if (!(todo.isEdited)) {
             return (
                 < div className = "todoElement" key = { todo.id } >
-                <input type="checkbox" checked={todo.isChecked} onClick={() => switchingCheckBoxValue(todo.id)} className="todoCheckbox" />
+                <input type="checkbox" checked={todo.isChecked} onClick={() => handleCheckBoxClick(todo.id)} className="todoCheckbox" />
                 <li className="todoName">
                     {todo.todoName}
                 </li>
-                <button className="todoEditButton" onClick={() => editTodo(todo.id)}>Edit</button>
-                <button className="todoDeleteButton" onClick={() => deleteTodo(todo.id)}>Delete</button>
+                <button className="todoEditButton" onClick={() => handleEditTodoClick(todo.id)}>Edit</button>
+                <button className="todoDeleteButton" onClick={() => handleDeleteTodoClick(todo.id)}>Delete</button>
                 </div >
             )
         } else {
@@ -44,12 +44,12 @@ const Main: React.FC = () => {
                 <div className="todoElementEditing">
                     <input
                         className="todoEditInput"
-                        onChange={(event) => changeTodoText(todo.id, event)}
+                        onChange={(event) => handleEditTodoInPutChange(todo.id, event)}
                         value={todo.newName}
                     />
                     <button
                         className="todoEditDoneButton"
-                        onClick={() => editDoneClicked(todo.id)}
+                        onClick={() => handleEditDoneClick(todo.id)}
                     >
                         Done
                     </button>
@@ -58,7 +58,7 @@ const Main: React.FC = () => {
         }
     });
 
-    function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    function handleNewTodoInPutChange(event: ChangeEvent<HTMLInputElement>) {
         setNewTodo({
             id: uuidv4(),
             isChecked: false,
@@ -68,7 +68,7 @@ const Main: React.FC = () => {
         });
     }
 
-    function handleClick() {
+    function handleCreateNewTodoClick() {
         dispatch(addNewTodo(newTodo));
         setNewTodo({
             id: "",
@@ -79,19 +79,19 @@ const Main: React.FC = () => {
         });
     }
 
-    function deleteTodo(id: string) {
+    function handleDeleteTodoClick(id: string) {
         dispatch(removeTodo(id));
     }
 
-    function editTodo(id: string) {
+    function handleEditTodoClick(id: string) {
         dispatch(changeIsEditedValue(id))
     }
 
-    function switchingCheckBoxValue(id: string) {
+    function handleCheckBoxClick(id: string) {
         dispatch(changIsCheckedValue(id));
     }
 
-    function changeTodoText(id: string, event: ChangeEvent<HTMLInputElement>) {
+    function handleEditTodoInPutChange(id: string, event: ChangeEvent<HTMLInputElement>) {
         const currentPayload = {
             id: id,
             newName: event.target.value
@@ -99,9 +99,9 @@ const Main: React.FC = () => {
         dispatch(changeNewNameValue(currentPayload))
     }
 
-    function editDoneClicked(id: string) {
+    function handleEditDoneClick(id: string) {
         dispatch(changeTodoNameValue(id))
-        editTodo(id)       
+        handleEditTodoClick(id)       
     }
  
     return (
@@ -111,11 +111,11 @@ const Main: React.FC = () => {
                     className="newTodoInput"
                     value={newTodo.todoName}
                     placeholder="type new todo here..."
-                    onChange={handleChange}
+                    onChange={handleNewTodoInPutChange}
                 />
                 <button
                     className="newTodoButton"
-                    onClick={handleClick}
+                    onClick={handleCreateNewTodoClick}
                     id="createButton"
                 >
                     Create
