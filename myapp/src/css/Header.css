@@ -1,14 +1,12 @@
-.header {
+.header-text {
     display: flex;
     justify-content: center;
-}
-
-.header-text {
     border: 1px;
     border-radius: 5px;
     color: white;
     font-size: 50px;
     background-color: blueviolet;
-    margin-bottom: 15px;
     padding: 25px;
+    margin-left: 50px;
+    margin-right: 50px;
 }

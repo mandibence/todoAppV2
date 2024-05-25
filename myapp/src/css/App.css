@@ -7,9 +7,8 @@
 
 .AppInnerContainer {
     background-color: #240242;
-    max-width: 440px;
-    min-width: 440px;
-    padding-top: 40px;
+    width: 440px;
+    padding-top: 45px;
     padding-bottom: 30px;
     border-radius: 5px;
 }

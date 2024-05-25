@@ -113,6 +113,7 @@ const Main: React.FC = () => {
                     value={newTodo.todoName}
                     placeholder="type new todo here..."
                     onChange={handleNewTodoInPutChange}
+                    maxLength={24}
                 />
                 <button
                     className="newTodoButton"
@@ -122,8 +123,8 @@ const Main: React.FC = () => {
                     Create
                 </button>
             </div>
-            <div className="todoListContainer">
-                <ul>
+            <div>
+                <ul className="todoList">
                     {todoListToRender}
                 </ul>
             </div>
